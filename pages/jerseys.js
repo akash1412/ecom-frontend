@@ -1,10 +1,12 @@
 import { DB_STORE } from "../firebase/config";
 import Collection from "./../components/Collection/Collection";
 import { Box } from "@chakra-ui/react";
+import MetaHead from "./../components/MetaHead/MetaHead";
 
 const Jerseys = ({ data }) => {
 	return (
 		<Box px='1.5rem' py='.5rem'>
+			<MetaHead title='jersys' />
 			<Collection items={data} />
 		</Box>
 	);

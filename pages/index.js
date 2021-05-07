@@ -1,13 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { DB_STORE } from "../firebase/config";
 import CollectionOverview from "../components/CollectionOverview/CollectionOverview";
+import MetaHead from "./../components/MetaHead/MetaHead";
 
 const Home = ({ ALL_ITEMS }) => {
-	const router = useRouter();
-
 	return (
-		<Box px='1.5rem' py='.5rem'>
+		<Box>
+			<MetaHead title='All Items' />
 			<CollectionOverview
 				data={{
 					type: "t-shirt",
@@ -51,10 +50,3 @@ export const getStaticProps = async () => {
 		},
 	};
 };
-
-{
-	/* <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head> */
-}
