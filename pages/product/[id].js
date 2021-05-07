@@ -14,7 +14,6 @@ export const getStaticPaths = async () => {
 	for (const doc of allItems.docs) {
 		paths.push({ params: { id: doc.id.toString() } });
 	}
-
 	return { paths, fallback: true };
 };
 

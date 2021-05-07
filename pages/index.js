@@ -1,9 +1,14 @@
 import { Box } from "@chakra-ui/react";
-import { DB_STORE } from "../firebase/config";
+import { DB_STORE, Upload } from "../firebase/config";
 import CollectionOverview from "../components/CollectionOverview/CollectionOverview";
 import MetaHead from "./../components/MetaHead/MetaHead";
+import { useState } from "react";
 
 const Home = ({ ALL_ITEMS }) => {
+	useState(() => {
+		Upload();
+	}, []);
+
 	return (
 		<Box>
 			<MetaHead title='All Items' />
