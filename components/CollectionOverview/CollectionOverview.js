@@ -1,6 +1,15 @@
+import { Box, Heading } from "@chakra-ui/react";
+import Collection from "../Collection/Collection";
+
 const CollectionOverview = ({ data }) => {
-	console.log(data);
-	return <div>CollectionOverview</div>;
+	const { type, items } = data;
+
+	return (
+		<Box>
+			<Heading size='sm'>{type}</Heading>
+			<Collection items={items} />
+		</Box>
+	);
 };
 
 export default CollectionOverview;

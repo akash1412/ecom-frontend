@@ -8,7 +8,7 @@ const Navbar = () => {
 			bgColor='white'
 			position='fixed'
 			top='0'
-			zIndex='1'
+			zIndex='5'
 			h='4.5rem'
 			w='100%'
 			borderBottom='2px solid #333'

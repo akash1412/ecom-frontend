@@ -7,7 +7,9 @@ const Main = ({ children }) => {
 		<Fragment>
 			<Navbar />
 			<Box minH='calc(100vh - 5rem)' mt='5rem'>
-				{children}
+				<Box m={[0, "0 auto"]} maxW='1200px' py='.5rem'>
+					{children}
+				</Box>
 			</Box>
 		</Fragment>
 	);

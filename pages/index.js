@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { DB_STORE } from "../firebase/config";
 import CollectionOverview from "../components/CollectionOverview/CollectionOverview";
@@ -18,13 +17,13 @@ const Home = ({ ALL_ITEMS }) => {
 			<CollectionOverview
 				data={{
 					type: "shoes",
-					items: ALL_ITEMS.filter(item => item.type === "t-shirt").slice(0, 4),
+					items: ALL_ITEMS.filter(item => item.type === "shoes").slice(0, 4),
 				}}
 			/>
 			<CollectionOverview
 				data={{
 					type: "jersey",
-					items: ALL_ITEMS.filter(item => item.type === "t-shirt").slice(0, 4),
+					items: ALL_ITEMS.filter(item => item.type === "jersey").slice(0, 4),
 				}}
 			/>
 		</Box>

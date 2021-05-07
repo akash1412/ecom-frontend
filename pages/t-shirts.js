@@ -1,7 +1,13 @@
 import { DB_STORE } from "../firebase/config";
+import { Box } from "@chakra-ui/react";
+import Collection from "../components/Collection/Collection";
 
 const TShirts = ({ data }) => {
-	return <div>t-shirts</div>;
+	return (
+		<Box px='1.5rem' py='.5rem'>
+			<Collection items={data} />
+		</Box>
+	);
 };
 
 export default TShirts;
