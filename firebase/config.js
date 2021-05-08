@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { uuid } from "uuidv4";
+import "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyBuPgyzPs5OLujEgNg6vv9sbxLkayTkPNM",
@@ -232,10 +232,12 @@ const data = [
 ];
 const DB_STORE = firebase.firestore();
 
+const auth = firebase.auth();
+
 const Upload = async () => {
 	data.forEach(
 		async d => await firebase.firestore().collection("store").add(d)
 	);
 };
 
-export { DB_STORE, Upload };
+export { DB_STORE, auth };

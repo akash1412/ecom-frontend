@@ -1,13 +1,27 @@
+import { Box, Image } from "@chakra-ui/react";
 import { DB_STORE } from "../../firebase/config";
 
 const Product = ({ data }) => {
-	console.log(data);
-	return <div>product</div>;
+	const { coverImg, title, price, type: catergory } = data;
+	return (
+		<Box maxH='calc(100vh - 4.5rem)' d='flex'>
+			<Box maxH='100%' flexBasis='60%'>
+				<Image
+					src={coverImg}
+					alt={title}
+					w='100%'
+					h='100%'
+					objectFit='cover'
+					objectPosition='center'
+				/>
+			</Box>
+			<Box flexGrow='1'>{title}</Box>
+		</Box>
+	);
 };
 
 export const getStaticPaths = async () => {
 	const paths = [];
-	const items = [];
 
 	const allItems = await DB_STORE.collection("store").get();
 

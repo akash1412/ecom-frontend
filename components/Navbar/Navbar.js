@@ -2,6 +2,9 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import SearchBar from "./../SearchBar/SearchBar";
 import NavLinks from "./../NavLinks/NavLinks";
 
+import ModalContextProvider from "../../context/Modal";
+import NavbarOptions from "../NavbarOptions/NavbarOptions";
+
 const Navbar = () => {
 	return (
 		<Flex
@@ -11,7 +14,6 @@ const Navbar = () => {
 			zIndex='5'
 			h='4.5rem'
 			w='100%'
-			borderBottom='2px solid #333'
 			px='1.4rem'
 			alignItems='center'
 			justifyContent='space-between'>
@@ -20,6 +22,9 @@ const Navbar = () => {
 				<NavLinks />
 			</Flex>
 			<SearchBar />
+			<ModalContextProvider>
+				<NavbarOptions />
+			</ModalContextProvider>
 		</Flex>
 	);
 };

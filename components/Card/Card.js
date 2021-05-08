@@ -37,6 +37,7 @@ const Card = props => {
 						objectFit='cover'
 						transition='transform .5s'
 						src={coverImg}
+						alt={title}
 						_groupHover={{ transform: "scale(1.2)" }}
 					/>
 				</Flex>
