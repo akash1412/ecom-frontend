@@ -1,6 +1,17 @@
 import { useState } from "react";
 
-import { Flex, FormControl, Input, FormLabel, Button } from "@chakra-ui/react";
+import {
+	Flex,
+	FormControl,
+	Input,
+	FormLabel,
+	Button,
+	Spinner,
+} from "@chakra-ui/react";
+
+import PasswordInput from "./../PasswordInput/PasswordInput";
+
+import { auth } from "../../firebase/config";
 
 const SignIn = () => {
 	const [inputs, setInputs] = useState({
@@ -8,9 +19,25 @@ const SignIn = () => {
 		password: "",
 	});
 
+	const [showSpinner, setShowSpinner] = useState(false);
+
 	const handleInputChange = e => {
 		const { name, value } = e.target;
 		setInputs({ ...inputs, [name]: value });
+	};
+
+	const Login = async () => {
+		setShowSpinner(true);
+		const { email, password } = inputs;
+
+		try {
+			const res = await auth.signInWithEmailAndPassword(email, password);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setShowSpinner(false);
+		}
 	};
 
 	return (
@@ -27,17 +54,23 @@ const SignIn = () => {
 			</FormControl>
 
 			<FormControl mt={2}>
-				<FormLabel>Last name</FormLabel>
-				<Input
+				<FormLabel>Password</FormLabel>
+				<PasswordInput
+					name='password'
+					value={inputs.password}
+					onChange={handleInputChange}
+				/>
+				{/* <Input
 					placeholder='Password'
 					name='password'
 					value={inputs.password}
 					onChange={handleInputChange}
 					borderRadius='none'
-				/>
+				/> */}
 			</FormControl>
 			<Button
 				alignSelf='center'
+				w='10rem'
 				mt='2rem'
 				px='2rem'
 				borderRadius='none'
@@ -48,8 +81,10 @@ const SignIn = () => {
 					bgColor: "white",
 					color: "black",
 					border: "1.2px solid black",
-				}}>
-				Sign In
+				}}
+				opacity={showSpinner ? ".7" : "1"}
+				onClick={Login}>
+				{showSpinner ? <Spinner size='sm' /> : "Sign In"}
 			</Button>
 		</Flex>
 	);

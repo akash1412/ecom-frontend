@@ -6,9 +6,10 @@ import {
 	FormLabel,
 	Box,
 	Button,
+	Spinner,
 } from "@chakra-ui/react";
-
-import { auth, DB_STORE } from "../../firebase/config";
+import PasswordInput from "./../PasswordInput/PasswordInput";
+import { auth, timeStamp,DB_STORE } from "../../firebase/config";
 
 const SignUp = () => {
 	const [inputs, setInputs] = useState({
@@ -16,6 +17,8 @@ const SignUp = () => {
 		email: "",
 		password: "",
 	});
+
+	const [showSpinner, setShowSpinner] = useState(false);
 
 	const handleInputChange = e => {
 		const { name, value } = e.target;
@@ -25,7 +28,7 @@ const SignUp = () => {
 
 	const SignUpUser = () => {
 		const { name, email, password } = inputs;
-
+		setShowSpinner(true);
 		auth
 			.createUserWithEmailAndPassword(email, password)
 			.then(({ user }) => {
@@ -34,9 +37,13 @@ const SignUp = () => {
 					email,
 					cart: [],
 					wishlist: [],
+					createdAt:timeStamp()
 				});
 			})
-			.then(() => setInputs({ name: "", email: "", password: "" }));
+			.then(() => {
+				setShowSpinner(false);
+				setInputs({ name: "", email: "", password: "" });
+			});
 	};
 
 	return (
@@ -65,30 +72,30 @@ const SignUp = () => {
 			</FormControl>
 			<FormControl>
 				<FormLabel>Password</FormLabel>
-				<Input
-					borderRadius='none'
+
+				<PasswordInput
 					name='password'
 					value={inputs.password}
 					onChange={handleInputChange}
-					placeholder='Email'
-					borderRadius='none'
 				/>
 			</FormControl>
 			<Button
 				alignSelf='center'
+				w='10rem'
 				mt='2rem'
 				px='2rem'
 				borderRadius='none'
 				bgColor='black'
 				color='white'
-				border='1.2px solid black'
+				border='1.6px solid black'
 				_hover={{
 					bgColor: "white",
 					color: "black",
-					border: "1.2px solid black",
+					border: "1.6px solid black",
 				}}
+				opacity={showSpinner ? ".7" : "1"}
 				onClick={SignUpUser}>
-				Sign Up
+				{showSpinner ? <Spinner size='sm' /> : "Sign Up"}
 			</Button>
 		</Flex>
 	);

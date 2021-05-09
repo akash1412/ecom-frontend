@@ -2,14 +2,9 @@ import { useContext, useState } from "react";
 import {
 	Box,
 	Text,
-	Button,
-	FormControl,
-	FormLabel,
-	Input,
 	Modal,
 	ModalOverlay,
 	ModalContent,
-	ModalHeader,
 	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
@@ -20,16 +15,15 @@ import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
 
 const SignInSignUpModal = () => {
-	const { isOpen, toogleModal } = useContext(ModalContext);
+	const { isOpen, toggleModal } = useContext(ModalContext);
 
 	const [showSignUp, setShowSignUp] = useState(false);
 
 	return (
-		<Modal isOpen={true}>
+		<Modal size='sm' isOpen={isOpen}>
 			<ModalOverlay />
-			<ModalContent px='3rem' py='2rem' borderRadius='none'>
-				<ModalHeader>Create your account</ModalHeader>
-				<ModalCloseButton onClick={() => toogleModal()} />
+			<ModalContent px='2rem' py='2rem' borderRadius='none'>
+				<ModalCloseButton onClick={() => toggleModal()} />
 				<ModalBody pb={6}>{!showSignUp ? <SignIn /> : <SignUp />}</ModalBody>
 
 				<ModalFooter textAlign='center'>
@@ -38,7 +32,7 @@ const SignInSignUpModal = () => {
 						as='button'
 						fontWeight='bold'
 						onClick={() => setShowSignUp(!showSignUp)}>
-						sign up
+						{showSignUp ? "sign in" : "sign up"}
 					</Box>
 				</ModalFooter>
 			</ModalContent>
