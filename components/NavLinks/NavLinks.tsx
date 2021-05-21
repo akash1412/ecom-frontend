@@ -10,19 +10,29 @@ const NavLinks = () => {
 					All
 				</LinkUI>
 			</Link>
-			<Link href='/t-shirts'>
+			<Link href='/store/men'>
 				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
-					T-Shirts
+					Mens
 				</LinkUI>
 			</Link>
-			<Link href='/shoes'>
+			<Link href='/store/women'>
 				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
-					Shoes
+					Womens
 				</LinkUI>
 			</Link>
-			<Link href='/jerseys'>
+			<Link href='/jacket'>
 				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
-					Jersey
+					Jackets
+				</LinkUI>
+			</Link>
+			<Link href='/store/sneaker'>
+				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
+					Sneakers
+				</LinkUI>
+			</Link>
+			<Link href='/store/hat'>
+				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
+					Hats
 				</LinkUI>
 			</Link>
 		</Flex>

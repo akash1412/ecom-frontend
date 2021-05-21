@@ -4,16 +4,16 @@ import { BiLogIn } from "react-icons/bi";
 
 import { ModalContext } from "../../context/Modal";
 import { AuthContext } from "../../context/Auth";
-import ProfileOverview from "./../ProfileOverview/ProfileOverview";
+import ProfileOverview from "../ProfileOverview/ProfileOverview";
 
 const NavbarOptions = () => {
 	const { toggleModal, isOpen } = useContext(ModalContext);
 
-	const { user } = useContext(AuthContext);
+	// const { user } = useContext(AuthContext);
 
 	return (
 		<Box justifySelf='flex-end' d='flex' alignItems='center'>
-			{!user ? (
+			{/* {!user ? (
 				<Icon
 					onClick={() => toggleModal()}
 					cursor='pointer'
@@ -21,7 +21,7 @@ const NavbarOptions = () => {
 					w='1rem'
 					h='1rem'
 				/>
-			) : null}
+			) : null} */}
 
 			<ProfileOverview />
 		</Box>

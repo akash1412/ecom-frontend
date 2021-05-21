@@ -8,14 +8,16 @@ import {
 	Button,
 	Spinner,
 } from "@chakra-ui/react";
-import PasswordInput from "./../PasswordInput/PasswordInput";
-import { auth, timeStamp,DB_STORE } from "../../firebase/config";
+import PasswordInput from "../PasswordInput/PasswordInput";
+
+import axios from "axios";
 
 const SignUp = () => {
 	const [inputs, setInputs] = useState({
 		name: "",
 		email: "",
-		password: "",
+		password: "akash123",
+		confirmPassword: "akash123",
 	});
 
 	const [showSpinner, setShowSpinner] = useState(false);
@@ -26,24 +28,27 @@ const SignUp = () => {
 		setInputs({ ...inputs, [name]: value });
 	};
 
-	const SignUpUser = () => {
-		const { name, email, password } = inputs;
+	const SignUpUser = async () => {
+		const { name, email, password, confirmPassword: passwordConfirm } = inputs;
 		setShowSpinner(true);
-		auth
-			.createUserWithEmailAndPassword(email, password)
-			.then(({ user }) => {
-				return DB_STORE.collection("users").doc(user.uid).set({
+
+		try {
+			const user = await axios({
+				url: "http://localhost:90/api/v1/users/signup",
+				method: "POST",
+				data: {
 					name,
 					email,
-					cart: [],
-					wishlist: [],
-					createdAt:timeStamp()
-				});
-			})
-			.then(() => {
-				setShowSpinner(false);
-				setInputs({ name: "", email: "", password: "" });
+					password,
+					passwordConfirm,
+				},
 			});
+		} catch (error) {
+			console.log("Error ", error);
+		} finally {
+			setShowSpinner(false);
+			setInputs({ name: "", email: "", password: "", confirmPassword: "" });
+		}
 	};
 
 	return (
@@ -56,7 +61,6 @@ const SignUp = () => {
 					value={inputs.name}
 					onChange={handleInputChange}
 					placeholder='John Doe'
-					borderRadius='none'
 				/>
 			</FormControl>
 			<FormControl>
@@ -67,7 +71,6 @@ const SignUp = () => {
 					value={inputs.email}
 					onChange={handleInputChange}
 					placeholder='Email'
-					borderRadius='none'
 				/>
 			</FormControl>
 			<FormControl>
@@ -76,6 +79,16 @@ const SignUp = () => {
 				<PasswordInput
 					name='password'
 					value={inputs.password}
+					onChange={handleInputChange}
+				/>
+			</FormControl>
+			<FormControl>
+				<FormLabel>Confirm Password</FormLabel>
+
+				<PasswordInput
+					placeholder='Confirm Password'
+					name='confirmPassword'
+					value={inputs.confirmPassword}
 					onChange={handleInputChange}
 				/>
 			</FormControl>

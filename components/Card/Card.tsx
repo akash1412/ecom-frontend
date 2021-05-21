@@ -1,8 +1,8 @@
+import React from "react";
 import {
 	Link as LinkUI,
 	Flex,
 	Box,
-	Pseudo,
 	Image,
 	Heading,
 	Icon,
@@ -12,8 +12,18 @@ import Link from "next/link";
 import { Fragment, useState } from "react";
 import { FiHeart } from "react-icons/fi";
 
-const Card = props => {
-	const { id, coverImg, title, price } = props;
+/**
+ * @param Interfaces
+ 
+ */
+import { Item } from "./../../Interface/Interface";
+
+interface CardProps extends Item {}
+
+const Card: React.FC<CardProps> = props => {
+	// const { id, coverImg, title, price } = props;
+
+	const { _id, title, slug, description, price, image, category } = props;
 
 	const [loaded, setLoaded] = useState(false);
 
@@ -21,7 +31,7 @@ const Card = props => {
 		<Fragment>
 			{!loaded && <Skeleton h='20rem' borderRadius='none' />}
 
-			<Link href={`/product/${id}`}>
+			<Link href={`/product/${_id}`}>
 				<LinkUI d={loaded ? "inline" : "none"}>
 					<Flex width='100%' position='relative' overflow='hidden' role='group'>
 						<Box
@@ -51,7 +61,7 @@ const Card = props => {
 							height='100%'
 							objectFit='cover'
 							transition='transform .5s'
-							src={coverImg}
+							src={image}
 							alt={title}
 							_groupHover={{ transform: "scale(1.2)" }}
 							onLoad={() => setLoaded(true)}

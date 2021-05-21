@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 import {
 	Flex,
@@ -9,7 +10,7 @@ import {
 	Spinner,
 } from "@chakra-ui/react";
 
-import PasswordInput from "./../PasswordInput/PasswordInput";
+import PasswordInput from "../PasswordInput/PasswordInput";
 
 import { auth } from "../../firebase/config";
 
@@ -28,10 +29,14 @@ const SignIn = () => {
 
 	const Login = async () => {
 		setShowSpinner(true);
-		const { email, password } = inputs;
+		// const { email, password } = inputs;
 
 		try {
-			const res = await auth.signInWithEmailAndPassword(email, password);
+			const res = await axios({
+				url: "http://localhost:90/api/v1/users/login",
+				method: "POST",
+				data: inputs,
+			});
 			console.log(res);
 		} catch (error) {
 			console.log(error);
@@ -60,13 +65,6 @@ const SignIn = () => {
 					value={inputs.password}
 					onChange={handleInputChange}
 				/>
-				{/* <Input
-					placeholder='Password'
-					name='password'
-					value={inputs.password}
-					onChange={handleInputChange}
-					borderRadius='none'
-				/> */}
 			</FormControl>
 			<Button
 				alignSelf='center'

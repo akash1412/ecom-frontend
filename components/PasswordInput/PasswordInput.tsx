@@ -6,7 +6,7 @@ import {
 	Icon,
 	Button,
 } from "@chakra-ui/react";
-import { GrFormView, GrFormViewHide } from "react-icons/gr";
+import { GrFormView, GrFormViewHide } from "react-icons/gr"
 
 const PasswordInput = props => {
 	const [show, setShow] = useState(false);
@@ -19,7 +19,7 @@ const PasswordInput = props => {
 				borderRadius='none'
 				type={show ? "text" : "password"}
 				{...props}
-				placeholder='Enter password'
+				placeholder={props.placeholder || "Enter password"}
 			/>
 			<InputRightElement width='4.5rem'>
 				<Button h='1.75rem' borderRadius='none' size='sm' onClick={handleClick}>

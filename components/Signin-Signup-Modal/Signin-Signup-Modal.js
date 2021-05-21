@@ -20,7 +20,7 @@ const SignInSignUpModal = () => {
 	const [showSignUp, setShowSignUp] = useState(false);
 
 	return (
-		<Modal size='sm' isOpen={isOpen}>
+		<Modal size='sm' isOpen={false}>
 			<ModalOverlay />
 			<ModalContent px='2rem' py='2rem' borderRadius='none'>
 				<ModalCloseButton onClick={() => toggleModal()} />

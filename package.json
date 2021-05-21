@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "**/*.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.5.1",
     "@emotion/react": "11",
     "@emotion/styled": "11",
+    "axios": "^0.21.1",
     "firebase": "^8.4.3",
     "framer-motion": "4",
     "next": "10.1.3",
@@ -18,5 +20,16 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
     "uuidv4": "^6.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^15.6.0",
+    "@types/react": "^17.0.6",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.3.0",
+    "typescript": "^4.2.4"
   }
 }

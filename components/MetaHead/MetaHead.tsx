@@ -1,6 +1,11 @@
+import React from "react";
 import Head from "next/head";
 
-const MetaHead = ({ title }) => {
+interface MetaProps {
+	title: string;
+}
+
+const MetaHead: React.FC<MetaProps> = ({ title }) => {
 	return (
 		<Head>
 			<title>{title}</title>

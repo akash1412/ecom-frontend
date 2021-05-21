@@ -1,11 +1,12 @@
+import React from "react";
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import SearchBar from "./../SearchBar/SearchBar";
-import NavLinks from "./../NavLinks/NavLinks";
+import SearchBar from "../SearchBar/SearchBar";
+import NavLinks from "../NavLinks/NavLinks";
 
 import ModalContextProvider from "../../context/Modal";
 import NavbarOptions from "../NavbarOptions/NavbarOptions";
 
-const Navbar = () => {
+const Navbar: React.FC<{}> = () => {
 	return (
 		<Flex
 			bgColor='white'
