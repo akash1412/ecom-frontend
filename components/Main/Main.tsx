@@ -1,9 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/react";
 import Navbar from "../Navbar/Navbar";
-import SignInSignUpModal from "../Signin-Signup-Modal/Signin-Signup-Modal";
-import ModalContextProvider from "../../context/Modal";
-
+import AuthModal from "../Modal/Modal";
+import ModalContextProvider from "../../context/ModalContext";
+import BucketContainer from "./../BucketContainer/BucketContainer";
 interface MainCompProps {
 	children: string | React.ReactNode;
 }
@@ -15,9 +15,8 @@ const Main: React.FC<MainCompProps> = ({ children }) => {
 			<Box minH='calc(100vh - 4.5rem)' mt='4.5rem'>
 				<Box maxW='1400px'>{children}</Box>
 			</Box>
-			<ModalContextProvider>
-				<SignInSignUpModal />
-			</ModalContextProvider>
+			<AuthModal />
+			{/* <BucketContainer /> */}
 		</React.Fragment>
 	);
 };

@@ -21,8 +21,6 @@ import { Item } from "./../../Interface/Interface";
 interface CardProps extends Item {}
 
 const Card: React.FC<CardProps> = props => {
-	// const { id, coverImg, title, price } = props;
-
 	const { _id, title, slug, description, price, image, category } = props;
 
 	const [loaded, setLoaded] = useState(false);
@@ -32,9 +30,14 @@ const Card: React.FC<CardProps> = props => {
 			{!loaded && <Skeleton h='20rem' borderRadius='none' />}
 
 			<Link href={`/product/${_id}`}>
-				<LinkUI d={loaded ? "inline" : "none"}>
-					<Flex width='100%' position='relative' overflow='hidden' role='group'>
-						<Box
+				<LinkUI d={loaded ? "block" : "none"}>
+					<Flex
+						w='100%'
+						h='100%'
+						position='relative'
+						overflow='hidden'
+						role='group'>
+						{/* <Box
 							w='100%'
 							position='absolute'
 							d='flex'
@@ -55,17 +58,20 @@ const Card: React.FC<CardProps> = props => {
 							<Box as='span'>
 								<Icon as={FiHeart} />
 							</Box>
+						</Box> */}
+
+						<Box w='100%' h='100%'>
+							<Image
+								width='100%'
+								height='100%'
+								objectFit='cover'
+								transition='transform .5s'
+								src={image}
+								alt={title}
+								_groupHover={{ transform: "scale(1.1)" }}
+								onLoad={() => setLoaded(true)}
+							/>
 						</Box>
-						<Image
-							width='100%'
-							height='100%'
-							objectFit='cover'
-							transition='transform .5s'
-							src={image}
-							alt={title}
-							_groupHover={{ transform: "scale(1.2)" }}
-							onLoad={() => setLoaded(true)}
-						/>
 					</Flex>
 				</LinkUI>
 			</Link>

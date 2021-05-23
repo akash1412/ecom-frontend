@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import axios from "axios";
 
 import {
@@ -12,24 +12,33 @@ import {
 
 import PasswordInput from "../PasswordInput/PasswordInput";
 
-import { auth } from "../../firebase/config";
+interface Props {
+	setToken: (token: string) => void;
+	closeModal: () => void;
+}
 
-const SignIn = () => {
-	const [inputs, setInputs] = useState({
+interface Input {
+	email: string;
+	password: string;
+}
+
+const SignIn: React.FC<Props> = ({ setToken, closeModal }) => {
+	const [inputs, setInputs] = React.useState<Input>({
 		email: "",
 		password: "",
 	});
 
-	const [showSpinner, setShowSpinner] = useState(false);
+	const [formError, setFormError] = React.useState<null | string>(null);
 
-	const handleInputChange = e => {
+	const [showSpinner, setShowSpinner] = React.useState<boolean>(false);
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 		setInputs({ ...inputs, [name]: value });
 	};
 
-	const Login = async () => {
+	const Login = async (): Promise<void> => {
 		setShowSpinner(true);
-		// const { email, password } = inputs;
 
 		try {
 			const res = await axios({
@@ -37,9 +46,12 @@ const SignIn = () => {
 				method: "POST",
 				data: inputs,
 			});
-			console.log(res);
+			//! error messages from server
+
+			setToken(res.data.token);
+			closeModal();
 		} catch (error) {
-			console.log(error);
+			console.log(error.message);
 		} finally {
 			setShowSpinner(false);
 		}
@@ -53,6 +65,7 @@ const SignIn = () => {
 					borderRadius='none'
 					name='email'
 					value={inputs.email}
+					isRequired
 					onChange={handleInputChange}
 					placeholder='Email'
 				/>
@@ -81,7 +94,11 @@ const SignIn = () => {
 					border: "1.2px solid black",
 				}}
 				opacity={showSpinner ? ".7" : "1"}
-				onClick={Login}>
+				onClick={Login}
+				onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => {
+					console.log("sda");
+					// e.key === "13" && Login();
+				}}>
 				{showSpinner ? <Spinner size='sm' /> : "Sign In"}
 			</Button>
 		</Flex>

@@ -1,21 +1,26 @@
 import React from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import Link from "next/link";
+import { Box, Heading, Link as LinkUI } from "@chakra-ui/react";
 import Collection from "../Collection/Collection";
 
 import { Item } from "../../Interface/Interface";
 
 interface CollectionOverviewProps {
-	title: string;
-	data: Item[];
+	collection: {
+		type: string;
+		data: Item[];
+	};
 }
 
 const CollectionOverview: React.FC<CollectionOverviewProps> = ({
-	title,
-	data,
+	collection,
 }) => {
+	const { type, data } = collection;
 	return (
 		<Box>
-			<Heading size='sm'>{title}</Heading>
+			<Link href={`/store/${type}`}>
+				<LinkUI>{type}</LinkUI>
+			</Link>
 			<Collection items={data} />
 		</Box>
 	);

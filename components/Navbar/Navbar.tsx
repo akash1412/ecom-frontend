@@ -3,7 +3,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import SearchBar from "../SearchBar/SearchBar";
 import NavLinks from "../NavLinks/NavLinks";
 
-import ModalContextProvider from "../../context/Modal";
+import ModalContextProvider from "../../context/ModalContext";
 import NavbarOptions from "../NavbarOptions/NavbarOptions";
 
 const Navbar: React.FC<{}> = () => {
@@ -23,9 +23,8 @@ const Navbar: React.FC<{}> = () => {
 				<NavLinks />
 			</Flex>
 			<SearchBar />
-			<ModalContextProvider>
-				<NavbarOptions />
-			</ModalContextProvider>
+
+			<NavbarOptions />
 		</Flex>
 	);
 };

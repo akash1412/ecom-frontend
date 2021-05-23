@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Box } from "@chakra-ui/react";
 
-import { AuthContext } from "../../context/Auth";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProfileOverview = () => {
 	// const { user } = useContext(AuthContext);

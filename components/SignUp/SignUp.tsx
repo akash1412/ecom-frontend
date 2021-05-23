@@ -4,7 +4,6 @@ import {
 	FormControl,
 	Input,
 	FormLabel,
-	Box,
 	Button,
 	Spinner,
 } from "@chakra-ui/react";
@@ -12,7 +11,12 @@ import PasswordInput from "../PasswordInput/PasswordInput";
 
 import axios from "axios";
 
-const SignUp = () => {
+interface Props {
+	setToken: (token: string) => void;
+	closeModal: () => void;
+}
+
+const SignUp: React.FC<Props> = ({ setToken, closeModal }) => {
 	const [inputs, setInputs] = useState({
 		name: "",
 		email: "",
@@ -33,7 +37,7 @@ const SignUp = () => {
 		setShowSpinner(true);
 
 		try {
-			const user = await axios({
+			const res = await axios({
 				url: "http://localhost:90/api/v1/users/signup",
 				method: "POST",
 				data: {
@@ -43,6 +47,9 @@ const SignUp = () => {
 					passwordConfirm,
 				},
 			});
+
+			setToken(res.data.token);
+			closeModal();
 		} catch (error) {
 			console.log("Error ", error);
 		} finally {

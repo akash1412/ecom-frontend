@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
 	InputGroup,
 	Input,
@@ -6,10 +6,17 @@ import {
 	Icon,
 	Button,
 } from "@chakra-ui/react";
-import { GrFormView, GrFormViewHide } from "react-icons/gr"
+import { GrFormView, GrFormViewHide } from "react-icons/gr";
 
-const PasswordInput = props => {
-	const [show, setShow] = useState(false);
+interface Props {
+	name: string;
+	value: string;
+	onChange: (e: React.ChangeEvent) => void;
+	placeholder?: string;
+}
+
+const PasswordInput: React.FC<Props> = props => {
+	const [show, setShow] = React.useState<boolean>(false);
 	const handleClick = () => setShow(!show);
 
 	return (
@@ -18,6 +25,7 @@ const PasswordInput = props => {
 				pr='4.5rem'
 				borderRadius='none'
 				type={show ? "text" : "password"}
+				isRequired
 				{...props}
 				placeholder={props.placeholder || "Enter password"}
 			/>

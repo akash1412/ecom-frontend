@@ -20,7 +20,7 @@ const NavLinks = () => {
 					Womens
 				</LinkUI>
 			</Link>
-			<Link href='/jacket'>
+			<Link href='/store/jacket'>
 				<LinkUI ml='.5rem' color='black' opacity='.5' _hover={{ opacity: "1" }}>
 					Jackets
 				</LinkUI>
