@@ -107,7 +107,7 @@ const AddNewItem: FC<{}> = () => {
 						<Image src={previewURL} w='100%' h='100%' objectFit='cover' />
 					)}
 				</Box>
-				<Box flex='1 1 0'>
+				<Box>
 					<form onSubmit={addItem}>
 						<FormControl mb='1rem' isDisabled={disable}>
 							<Input
