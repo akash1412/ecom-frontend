@@ -10,7 +10,9 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
-import { FiHeart } from "react-icons/fi";
+import { AiOutlineHeart } from "react-icons/ai";
+
+import { useBucketContext } from "./../../context/BucketContext";
 
 /**
  * @param Interfaces
@@ -18,63 +20,54 @@ import { FiHeart } from "react-icons/fi";
  */
 import { Item } from "./../../Interface/Interface";
 
-interface CardProps extends Item {}
+interface CardProps extends Item {
+	// description?:string
+}
 
 const Card: React.FC<CardProps> = props => {
 	const { _id, title, slug, description, price, image, category } = props;
 
 	const [loaded, setLoaded] = useState(false);
 
+	const { addItemToCart } = useBucketContext();
+
 	return (
 		<Fragment>
 			{!loaded && <Skeleton h='20rem' borderRadius='none' />}
 
-			<Link href={`/product/${_id}`}>
-				<LinkUI d={loaded ? "block" : "none"}>
-					<Flex
-						w='100%'
-						h='100%'
-						position='relative'
-						overflow='hidden'
-						role='group'>
-						{/* <Box
-							w='100%'
-							position='absolute'
-							d='flex'
-							justifyContent='space-between'
-							zIndex='1'>
-							<Box
-								bgColor='black'
-								color='white'
-								opacity='1'
-								_hover={{ opacity: "1" }}>
-								<Heading fontSize='1rem' pt='.5rem' px='.4rem'>
-									{title}
-								</Heading>
-								<Box as='span' fontSize='.7rem'>
-									{price}
-								</Box>
+			<Box position='relative' w='100%' h='100%'>
+				<Box
+					pos='absolute'
+					zIndex='4'
+					top='0'
+					right='0'
+					bgColor='#000'
+					p='2px 4px'
+					transform='translate(5px,-5px)'
+					onClick={(e: any) => {
+						addItemToCart(props);
+					}}>
+					<Icon as={AiOutlineHeart} color='#fff' textAlign='center' />
+				</Box>
+				<Link href={`/product/${_id}`}>
+					<LinkUI d={loaded ? "block" : "none"} w='100%' h='100%'>
+						<Flex role='group' w='100%' h='100%' overflow='hidden'>
+							<Box w='100%' h='100%'>
+								<Image
+									width='100%'
+									height='100%'
+									objectFit='cover'
+									transition='transform .5s'
+									src={image}
+									alt={title}
+									_groupHover={{ transform: "scale(1.1)" }}
+									onLoad={() => setLoaded(true)}
+								/>
 							</Box>
-							<Box as='span'>
-								<Icon as={FiHeart} />
-							</Box>
-						</Box> */}
-
-						<Box w='100%' h='100%'>
-							<Image
-								width='100%'
-								height='100%'
-								objectFit='cover'
-								transition='transform .5s'
-								src={image}
-								alt={title}
-								_groupHover={{ transform: "scale(1.1)" }}
-								onLoad={() => setLoaded(true)}
-							/>
-						</Box>
-					</Flex>
-				</LinkUI>
-			</Link>
+						</Flex>
+					</LinkUI>
+				</Link>
+			</Box>
 		</Fragment>
 	);
 };

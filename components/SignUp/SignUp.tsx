@@ -11,12 +11,18 @@ import PasswordInput from "../PasswordInput/PasswordInput";
 
 import axios from "axios";
 
+interface User {
+	name: string;
+	role: string;
+	token: string;
+}
+
 interface Props {
-	setToken: (token: string) => void;
+	setUserDetail: (user: User) => void;
 	closeModal: () => void;
 }
 
-const SignUp: React.FC<Props> = ({ setToken, closeModal }) => {
+const SignUp: React.FC<Props> = ({ setUserDetail, closeModal }) => {
 	const [inputs, setInputs] = useState({
 		name: "",
 		email: "",
@@ -48,7 +54,12 @@ const SignUp: React.FC<Props> = ({ setToken, closeModal }) => {
 				},
 			});
 
-			setToken(res.data.token);
+			const {
+				token,
+				data: { user },
+			} = res.data;
+
+			setUserDetail({ name: user.name, role: user.role, token });
 			closeModal();
 		} catch (error) {
 			console.log("Error ", error);

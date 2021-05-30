@@ -2,17 +2,21 @@ import React from "react";
 
 import axios from "axios";
 
+interface User {
+	name: string;
+	role: string;
+	token: string;
+}
+
 interface CreateContext {
-	token: null | string;
-	userDetail: null | object;
-	setTokenHandler: (token: string) => void;
+	user: null | User;
+	setUserDetail: (user: User) => void;
 	signOut: () => void;
 }
 
 export const AuthContext = React.createContext<CreateContext>({
-	token: null,
-	userDetail: null,
-	setTokenHandler: () => {},
+	user: null,
+	setUserDetail: () => {},
 	signOut: () => {},
 });
 
@@ -23,63 +27,36 @@ interface ContextProps {
 export const useAuthContext = () => React.useContext(AuthContext);
 
 const AuthContextProvider: React.FC<ContextProps> = ({ children }) => {
-	const [token, setToken] = React.useState<null | string>(null);
-	const [userDetail, setUserDetail] = React.useState<null | object>(null);
+	const [user, setUser] = React.useState<null | User>(
+		(): User => JSON.parse(window.localStorage.getItem("user"))
+	);
 
 	React.useEffect(() => {
-		const token = localStorage.getItem("token");
+		window.localStorage.setItem("user", JSON.stringify(user));
+	}, [user]);
 
-		setToken(token);
-
-		// if (token) {
-		// 	const fetchInfo = async (): Promise<void> => {
-		// 		try {
-		// 			const res = await axios({
-		// 				url: "http://localhost:90/api/v1/users/me",
-		// 				method: "GET",
-		// 				headers: {
-		// 					authorization: `Bearer ${token}`,
-		// 				},
-		// 			});
-
-		// 			setUserDetail(res.data.user);
-		// 		} catch (error) {
-		// 			console.log(error);
-		// 			alert();
-		// 		}
-		// 	};
-
-		// 	fetchInfo();
-		// }
-	}, [token]);
-
-	const setTokenHandler = (token: string): void => {
-		localStorage.setItem("token", token);
-
-		setToken(token);
+	const setUserDetail = (user: User) => {
+		setUser(user);
 	};
 
 	const signOut = async () => {
-		console.log("logged");
-
 		try {
 			await axios({
 				url: "http://localhost:90/api/v1/users/signout",
 				headers: {
-					authorization: `Bearer ${token}`,
+					authorization: `Bearer ${user.token}`,
 				},
 				method: "DELETE",
 			}).then(() => localStorage.removeItem("token"));
 
-			setToken(null);
+			setUser(null);
 		} catch (error) {
-			console.log(error);
+			console.log(error.response);
 		}
 	};
 
 	return (
-		<AuthContext.Provider
-			value={{ token, userDetail, setTokenHandler, signOut }}>
+		<AuthContext.Provider value={{ user, setUserDetail, signOut }}>
 			{children}
 		</AuthContext.Provider>
 	);

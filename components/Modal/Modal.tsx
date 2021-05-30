@@ -18,7 +18,7 @@ import SignUp from "../SignUp/SignUp";
 const SignInSignUpModal = () => {
 	const { isOpen, toggleModal } = useContext(ModalContext);
 
-	const { setTokenHandler } = useContext(AuthContext);
+	const { setUserDetail } = useContext(AuthContext);
 
 	const [showSignUp, setShowSignUp] = useState(false);
 
@@ -29,9 +29,9 @@ const SignInSignUpModal = () => {
 				<ModalCloseButton />
 				<ModalBody pb={6}>
 					{!showSignUp ? (
-						<SignIn setToken={setTokenHandler} closeModal={toggleModal} />
+						<SignIn setUserDetail={setUserDetail} closeModal={toggleModal} />
 					) : (
-						<SignUp setToken={setTokenHandler} closeModal={toggleModal} />
+						<SignUp setUserDetail={setUserDetail} closeModal={toggleModal} />
 					)}
 				</ModalBody>
 

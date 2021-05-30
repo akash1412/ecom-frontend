@@ -18,12 +18,12 @@ const Home: React.FC<Props> = ({ data }) => {
 		<Box py='.5rem' px='1.5rem'>
 			<MetaHead title='All Items' />
 
-			{/* {data.items.map(itemCollection => (
+			{data.items.map(itemCollection => (
 				<CollectionOverview
 					key={itemCollection.type}
 					collection={itemCollection}
 				/>
-			))} */}
+			))}
 		</Box>
 	);
 };
