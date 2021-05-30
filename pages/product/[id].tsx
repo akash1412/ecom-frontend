@@ -15,36 +15,36 @@ const Product = ({ data }) => {
 					objectPosition='center'
 				/>
 			</Box>
-			<Box flexGrow='1'>{title}</Box>
+			<Box>{title}</Box>
 		</Box>
 	);
 };
 
-export const getStaticPaths = async () => {
-	const paths = [];
+// export const getStaticPaths = async () => {
+// 	const paths = [];
 
-	const allItems = await DB_STORE.collection("store").get();
+// 	const allItems = await DB_STORE.collection("store").get();
 
-	for (const doc of allItems.docs) {
-		paths.push({ params: { id: doc.id.toString() } });
-	}
-	return { paths, fallback: true };
-};
+// 	for (const doc of allItems.docs) {
+// 		paths.push({ params: { id: doc.id.toString() } });
+// 	}
+// 	return { paths, fallback: true };
+// };
 
-export const getStaticProps = async ({ params }) => {
-	let data;
+// export const getStaticProps = async ({ params }) => {
+// 	let data;
 
-	const doc = await DB_STORE.collection("store").doc(params.id).get();
+// 	const doc = await DB_STORE.collection("store").doc(params.id).get();
 
-	if (doc.exists) {
-		data = { ...doc.data() };
-	}
+// 	if (doc.exists) {
+// 		data = { ...doc.data() };
+// 	}
 
-	return {
-		props: {
-			data,
-		},
-	};
-};
+// 	return {
+// 		props: {
+// 			data,
+// 		},
+// 	};
+// };
 
 export default Product;
