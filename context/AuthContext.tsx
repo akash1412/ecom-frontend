@@ -42,7 +42,7 @@ const AuthContextProvider: React.FC<ContextProps> = ({ children }) => {
 	const signOut = async () => {
 		try {
 			await axios({
-				url: "http://localhost:90/api/v1/users/signout",
+				url: "https://ecom-api-v1.herokuapp.com/api/v1/users/signout",
 				headers: {
 					authorization: `Bearer ${user.token}`,
 				},

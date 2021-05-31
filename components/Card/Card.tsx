@@ -10,9 +10,10 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { Fragment, useState } from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineEdit } from "react-icons/ai";
 
 import { useBucketContext } from "./../../context/BucketContext";
+import { useAuthContext } from "./../../context/AuthContext";
 
 /**
  * @param Interfaces
@@ -31,25 +32,30 @@ const Card: React.FC<CardProps> = props => {
 
 	const { addItemToCart } = useBucketContext();
 
+	const { user } = useAuthContext();
+
 	return (
 		<Fragment>
 			{!loaded && <Skeleton h='20rem' borderRadius='none' />}
 
 			<Box position='relative' w='100%' h='100%'>
-				<Box
-					pos='absolute'
-					zIndex='4'
-					top='0'
-					right='0'
-					bgColor='#000'
-					p='2px 4px'
-					transform='translate(5px,-5px)'
-					onClick={(e: any) => {
-						addItemToCart(props);
-					}}>
-					<Icon as={AiOutlineHeart} color='#fff' textAlign='center' />
-				</Box>
-				<Link href={`/product/${_id}`}>
+				{user?.role !== "admin" && (
+					<Box
+						pos='absolute'
+						zIndex='4'
+						top='0'
+						right='0'
+						bgColor='#000'
+						p='2px 4px'
+						transform='translate(5px,-5px)'
+						onClick={(e: any) => {
+							addItemToCart(props);
+						}}>
+						<Icon as={AiOutlineHeart} color='#fff' textAlign='center' />
+					</Box>
+				)}
+
+				<Link href={`/item/${slug}`}>
 					<LinkUI d={loaded ? "block" : "none"} w='100%' h='100%'>
 						<Flex role='group' w='100%' h='100%' overflow='hidden'>
 							<Box w='100%' h='100%'>

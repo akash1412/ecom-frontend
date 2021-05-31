@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import PasswordInput from "../PasswordInput/PasswordInput";
 
-import axios from "axios";
+import axios from "../../API/API";
 
 interface User {
 	name: string;
@@ -44,7 +44,7 @@ const SignUp: React.FC<Props> = ({ setUserDetail, closeModal }) => {
 
 		try {
 			const res = await axios({
-				url: "http://localhost:90/api/v1/users/signup",
+				url: "/users/signup",
 				method: "POST",
 				data: {
 					name,

@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios from "../../API/API";
 
 import {
 	Flex,
@@ -48,7 +48,7 @@ const SignIn: React.FC<Props> = ({ setUserDetail, closeModal }) => {
 
 		try {
 			const res = await axios({
-				url: "http://localhost:90/api/v1/users/login",
+				url: "/users/login",
 				method: "POST",
 				data: inputs,
 			});

@@ -1,9 +1,11 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
-import { DB_STORE } from "../firebase/config";
+
 import CollectionOverview from "../components/CollectionOverview/CollectionOverview";
 import MetaHead from "../components/MetaHead/MetaHead";
+
+// import axios from "../API/API";
 
 import axios from "axios";
 
@@ -35,13 +37,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	try {
 		const response = await axios({
-			url: "http://localhost:90/api/v1/store/",
+			url: "https://ecom-api-v1.herokuapp.com/api/v1/store",
 			method: "GET",
 		});
 
 		result = response.data.data;
-
-		console.log(result);
 	} catch (error) {
 		console.log(error);
 	}

@@ -2,6 +2,7 @@ import React from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { Box, Heading } from "@chakra-ui/react";
+// import axios from "../../API/API";
 import axios from "axios";
 
 import { Item } from "../../Interface/Interface";
@@ -17,6 +18,8 @@ interface Props {
 
 const Category: React.FC<Props> = ({ data }) => {
 	const router = useRouter();
+
+	console.log(data);
 
 	const type = router.query.category;
 
@@ -40,7 +43,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	try {
 		const res = await axios({
-			url: "http://localhost:90/api/v1/store/category-types",
+			url: "https://ecom-api-v1.herokuapp.com/api/v1/store/category-types",
 			method: "GET",
 		});
 
@@ -61,7 +64,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const res = await axios({
-		url: `http://localhost:90/api/v1/store/category/${params.category}`,
+		url: `https://ecom-api-v1.herokuapp.com/api/v1/store/category/${params.category}`,
 		method: "GET",
 	});
 
