@@ -45,7 +45,7 @@ export const getStaticPaths = async () => {
 	const res = await axios({
 		url: "https://ecom-api-v1.herokuapp.com/api/v1/store/slugs",
 		method: "GET",
-	}).catch(err => console.log(err.response));
+	})
 
 	res.data.data.slugs.forEach(item =>
 		paths.push({ params: { slug: item.slug } })
