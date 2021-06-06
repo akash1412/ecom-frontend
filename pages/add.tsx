@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from "react";
+import { NextPage, NextPageContext } from "next";
 import {
 	Box,
 	Button,
@@ -10,11 +11,22 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useAuthContext } from "../context/AuthContext";
+import useAuthContext from "../context/AuthContext";
 
 import axios from "axios";
+import useAuthProtected from "../hooks/useAuthProtected";
 
-const AddNewItem: FC<{}> = () => {
+interface Props extends NextPageContext {
+	user: string;
+}
+
+const AddNewItem: NextPage<Props> = () => {
+	// const router = useRouter();
+
+	// if (!window.localStorage.getItem("user")) {
+	// 	router.push("/");
+	// }
+
 	useEffect(() => {
 		console.log("called");
 	});
@@ -85,29 +97,59 @@ const AddNewItem: FC<{}> = () => {
 					category: "",
 					image: "",
 				});
+
+				setPreviewURL(null);
 			});
 	};
 
 	return (
 		<Box h='100%' w='100%' py='.5rem' px='1.5rem'>
-			<Flex m='auto' mt='4rem' justifyItems='center' w='70%'>
-				<Box h='20rem' w='20rem' d='flex' mr='1.5rem' border='1px solid #ccc'>
-					{!previewURL && !itemData.image && (
-						<Box margin='0 auto' alignSelf='center'>
-							<FormControl>
-								<label htmlFor='img' style={{ cursor: "pointer" }}>
+			<Flex m='auto' mt='4rem' w='70%'>
+				<Box minH='20rem' w='20rem' d='flex' flexDir='column' mr='1.5rem'>
+					<Box
+						border='1px solid #ccc'
+						style={{ flexGrow: 1 }}
+						d='flex'
+						alignItems='center'
+						justifyContent='center'>
+						{!previewURL && !itemData.image && (
+							<FormControl textAlign='center'>
+								<label
+									htmlFor='img'
+									style={{
+										cursor: "pointer",
+										padding: ".5rem 1rem",
+										backgroundColor: "#ccc",
+										fontWeight: 550,
+										textAlign: "center",
+									}}>
 									upload image
 								</label>
 								<Input id='img' type='file' d='none' onChange={onImageUpload} />
 							</FormControl>
-						</Box>
-					)}
+						)}
 
-					{previewURL && (
-						<Image src={previewURL} w='100%' h='100%' objectFit='cover' />
-					)}
+						{previewURL && (
+							<Image src={previewURL} w='100%' h='100%' objectFit='cover' />
+						)}
+					</Box>
+					<Button
+						mt='.4rem'
+						alignSelf='center'
+						color='#fff'
+						bgColor='red.500'
+						px='2rem'
+						py='.3rem'
+						_hover={{
+							bgColor: "red.500",
+						}}
+						_active={{
+							bgColor: "red.500",
+						}}>
+						Clear
+					</Button>
 				</Box>
-				<Box>
+				<Box flex='1 1 0'>
 					<form onSubmit={addItem}>
 						<FormControl mb='1rem' isDisabled={disable}>
 							<Input
@@ -158,4 +200,11 @@ const AddNewItem: FC<{}> = () => {
 	);
 };
 
+// AddNewItem.getInitialProps = (ctx ): Props=> {
+// 	const user = JSON.parse(window.localStorage.getItem("user"));
+
+// 	console.log(user);
+
+// 	return { user: "asd", ...ctx};
+// };
 export default AddNewItem;

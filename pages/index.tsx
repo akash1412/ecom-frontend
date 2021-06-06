@@ -17,7 +17,7 @@ interface Props {
 
 const Home: React.FC<Props> = ({ data }) => {
 	return (
-		<Box py='.5rem' px='1.5rem'>
+		<Box py='.5rem' px='1.5rem' w='100%'>
 			<MetaHead title='All Items' />
 
 			{data.items.map(itemCollection => (
@@ -50,5 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 		props: {
 			data: result,
 		},
+
+		revalidate: 5,
 	};
 };

@@ -15,7 +15,9 @@ const NavbarOptions: React.FC<{}> = () => {
 		<Box alignSelf='center' justifySelf='flex-end' d='flex' alignItems='center'>
 			{user?.role === "admin" && (
 				<Link href='/add'>
-					<LinkUI mr='2px'>add</LinkUI>
+					<LinkUI mr='1rem' fontWeight='bold' textDecoration='none'>
+						add
+					</LinkUI>
 				</Link>
 			)}
 

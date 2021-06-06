@@ -19,8 +19,6 @@ interface Props {
 const Category: React.FC<Props> = ({ data }) => {
 	const router = useRouter();
 
-	console.log(data);
-
 	const type = router.query.category;
 
 	const { total, items } = data;
