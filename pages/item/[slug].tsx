@@ -86,7 +86,7 @@ const Item: FC<{ data: any }> = ({ data }) => {
 						${data.price}
 					</Text>
 					<Box mt='auto' d='flex'>
-						{user.role === "admin" ? (
+						{user?.role === "admin" ? (
 							<>
 								<Button
 									mr='1.2rem'
@@ -168,6 +168,8 @@ export const getStaticProps = async ({ params }) => {
 		props: {
 			data,
 		},
+
+		revalidate: 5,
 	};
 };
 
